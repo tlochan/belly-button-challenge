@@ -24,13 +24,37 @@
       <div class="col-md-2">
         <div class="card card-body bg-light">
           <h6>Test Subject ID No.:</h6>
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+          <select id="selDataset" onchange="optionChanged(this.value)">
+          </select>
+          <script src="./static/js/app.js"></script>
         </div>
+        
+        <script>
+          // Fetch JSON data
+          d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json")
+            .then(function(data) {
+              // Extract IDs from the data
+              let ids = data.names;
+      
+              // Select the dropdown menu
+              let dropdownMenu = d3.select("#selDataset");
+      
+              // Add options to the dropdown menu
+              dropdownMenu.selectAll("option")
+                .data(ids)
+                .enter()
+                .append("option")
+                .text(function(d) { return d; })
+                .attr("value", function(d) { return d; });
+            })
+        </script>
         <div class="card card-primary">
           <div class="card-header">
             <h4 class="card-title">Demographic Info</h4>
           </div>
-          <div id="sample-metadata" class="card-body"></div>
+          <div id="sample-metadata" class="card-body"><h3>
+            meta
+        </h3></div>
         </div>
       </div>
       <div class="col-md-5">
@@ -48,8 +72,6 @@
   </div>
 
   <script src="./static/js/app.js"></script>
-  <script src="./static/js/bonus.js"></script>
-
 </body>
 
 </html>
